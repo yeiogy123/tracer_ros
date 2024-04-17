@@ -1,0 +1,18 @@
+<launch>
+<arg name="rp_devicename" default="/dev/rplidar"/>
+<arg name="can_devicename" default="can0"/>
+
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_laser" args="0.23 -0.18 0.0 -3.14 0.0 0.0 /base_link /laser 10"/>
+<include file="$(find rplidar_ros)/launch/rplidar_a3.launch">
+    <param name="serial_port"         type="string" value="$(arg rp_devicename)"/> 
+</include>
+
+<include file="$(find tracer_base)/launch/tracer_base.launch" >
+    <arg name="port_name" default="$(arg can_devicename)" />
+    <arg name="simulated_robot" default="false" />
+</include>
+
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_camera" args="0.23 0.0 0.0 0.0 0.0 0.0 /base_link /camera_link 10"/>
+<include file="$(find tracer_bringup)/launch/rs_d435i.launch"/>
+
+</launch>
