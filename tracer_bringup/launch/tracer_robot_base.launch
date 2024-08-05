@@ -3,5 +3,8 @@
         <arg name="port_name" default="can0" />
         <arg name="simulated_robot" default="false" />
     </include>
+    
+    <include file="$(find tracer_bringup)/launch/sensor.launch" >
+    </include>
     <!--include file="$(find tracer_description)/launch/load_nav_model.launch" /-->
 </launch>
